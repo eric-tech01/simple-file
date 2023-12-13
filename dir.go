@@ -5,8 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"go.uber.org/multierr"
 )
 
 // GetCurrentDirectory ...
@@ -33,17 +31,4 @@ func GetCurrentPackage() string {
 	}
 
 	return strings.Replace(dir, "\\", "/", -1)
-}
-
-// MakeDirectory ...
-func MakeDirectory(dirs ...string) error {
-	var errs error
-	for _, dir := range dirs {
-		if !Exists(dir) {
-			if err := os.MkdirAll(dir, 0755); err != nil {
-				errs = multierr.Append(errs, err)
-			}
-		}
-	}
-	return errs
 }
